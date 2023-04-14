@@ -5,7 +5,6 @@ import logger from 'use-reducer-logger';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -19,7 +18,7 @@ const reducer = (state, action) => {
   }
 };
 
-function HomeScreen() {
+function HomeProdScreen() {
   
   const [{ products }, dispatch] = useReducer(logger(reducer), {
     products: [],
@@ -42,34 +41,17 @@ function HomeScreen() {
     fetchData();
   }, []);
 
-
-
-
   return (
 
 
-    <div class="card text-center">
-          <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-              <li class="nav-item">
-                  <a class="nav-link active" href="#">Active</a>
-              </li>
 
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-              </li>
 
-              <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-        </div>
 
-        <div class="card-body">
-              
-                <div>
+        <div class="card-body" >
+        <h1 style={{fontWeight: 'bold', textAlign: "center"}}>Home Products </h1>   
+                
                    <div className='products'>
-                {products.map((product) => (
+                {products.filter(products => products.category === 3).map((product) => (
                   <Col
                     className='align-items-stretch d-flex'
                     key={product._id}
@@ -87,7 +69,7 @@ function HomeScreen() {
                         }}
                         to={`/product/${product._id}`}
                       >
-                        <Card.Img 
+                        <Card.Img
                           style={{
                             height: '100%',
                           }}
@@ -97,13 +79,15 @@ function HomeScreen() {
                         />
                       </Link>
                       <Card.Body>
-                      <Card.Title style={{fontWeight: 'bold'}}>{product.name}</Card.Title>
-                      <Card.Text style={{textAlign: "center"}}>
-                          <strong>Price: {product.price}₪</strong>
-                        </Card.Text>
-                        <Link to={`/product/${product._id}`} type="button" class="btn btn-info" style={{color:'white', width: '120px'}}>
-                            <strong>Enter the ad</strong>
+                        <Link to={`/product/${product._id}`}>
+                          <Card.Title as='div'>
+                            <strong>{product.name}</strong>
+                          </Card.Title>
                         </Link>
+                        <Card.Text>
+                          <strong>${product.price}</strong>
+                        </Card.Text>
+
                       </Card.Body>
                     </Card>
                   </Col>
@@ -111,11 +95,16 @@ function HomeScreen() {
               </div>
             </div>
 
-          </div>
-    </div>
+  
+
 
     
   );
 }
 
-export default HomeScreen;
+export default HomeProdScreen;
+
+
+
+
+

@@ -19,7 +19,7 @@
     }
   };
   
-  function PaymentScreen() {
+  function FornitureScreen() {
     
     const [{ products }, dispatch] = useReducer(logger(reducer), {
       products: [],
@@ -52,7 +52,7 @@
           <h1 style={{fontWeight: 'bold', textAlign: "center"}}>Forniture</h1>   
                   
                      <div className='products'>
-                  {products.map((product) => (
+                  {products.filter(products => products.category === 1).map((product) => (
                     <Col
                       className='align-items-stretch d-flex'
                       key={product._id}
@@ -88,7 +88,9 @@
                           <Card.Text>
                             <strong>${product.price}</strong>
                           </Card.Text>
-
+                          <Link to={`/product/${product._id}`} type="button" class="btn btn-info" style={{color:'white', width: '120px'}}>
+                            <strong>Enter the ad</strong>
+                        </Link>
                         </Card.Body>
                       </Card>
                     </Col>
@@ -103,7 +105,7 @@
     );
   }
   
-  export default PaymentScreen;
+  export default FornitureScreen;
 
 
     
